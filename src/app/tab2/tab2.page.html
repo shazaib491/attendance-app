@@ -1,0 +1,42 @@
+<ion-header >
+  <ion-toolbar color="primary">
+    <ion-buttons class="ion-margin-end" slot="end" (click)="authService.logout()">
+      <ion-icon name="log-out-outline"></ion-icon>
+    </ion-buttons>
+    <ion-title> Qr Scanner </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card class="ion-text-center">
+          <ion-card-header>
+            <ion-item>
+              <ion-label class="ion-text-center">{{currentUser.username}}</ion-label>
+            </ion-item>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-spinner *ngIf="spinnerLoading"></ion-spinner>
+            <zxing-scanner
+              #isComponentLoaded
+              [enable]="isToasterEnabled"
+              (scanSuccess)="onCodeResult($event)"
+            ></zxing-scanner>
+            <ion-item>
+              <ion-label class="ion-text-center">
+                USER ID : <strong>{{currentUser.email}}</strong>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label class="ion-text-center">
+                Scan this Qr code to Mark Attendance
+              </ion-label>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

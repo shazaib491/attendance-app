@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/auth"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sign Up</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="false">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <form (ngSubmit)="onRegister(form)" #form="ngForm">
+          <ion-card>
+            <ion-card-header> </ion-card-header>
+            <ion-card-content>
+              <ion-item>
+                <ion-input
+                  label="Username"
+                  labelPlacement="floating"
+                  placeholder="Enter Username"
+                  name="username"
+                  [(ngModel)]="signupDetail.username"
+                ></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-input
+                  label="Email"
+                  labelPlacement="floating"
+                  placeholder="Enter Email"
+                  name="email"
+                  [(ngModel)]="signupDetail.email"
+                ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input
+                  label="Mobile"
+                  labelPlacement="floating"
+                  placeholder="Enter Mobile"
+                  name="mobile"
+                  [(ngModel)]="signupDetail.mobile"
+                ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input
+                  label="Age"
+                  labelPlacement="floating"
+                  placeholder="Enter Age"
+                  name="age"
+                  [(ngModel)]="signupDetail.age"
+                ></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-input
+                  type="password"
+                  label="Password"
+                  labelPlacement="floating"
+                  placeholder="Enter Password"
+                  name="password"
+                  [(ngModel)]="signupDetail.password"
+                ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input
+                  type="password"
+                  label="confirm-Password"
+                  labelPlacement="floating"
+                  placeholder="Enter Confirm Password"
+                  name="confirmPassword"
+                  [(ngModel)]="signupDetail.confirmPassword"
+                ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-select
+                  name="batchId"
+                  aria-label="Batch Name"
+                  interface="Batch Name"
+                  placeholder="Batch Name"
+                >
+                  <ion-select-option
+                    *ngFor="let batches of allBatches$ | async"
+                    value="{{ batches._id }}"
+                    >{{ batches.course_name }}</ion-select-option
+                  >
+                </ion-select>
+              </ion-item>
+
+              <ion-button type="submit" expand="block" class="ion-margin">
+                <ion-spinner
+                  *ngIf="authService.loading$ | async"
+                  name="dots"
+                ></ion-spinner>
+                <span *ngIf="!(authService.loading$ | async)">Register</span>
+              </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>Footer</ion-title>
+  </ion-toolbar>
+</ion-footer>
