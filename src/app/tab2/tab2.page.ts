@@ -22,7 +22,6 @@ export class Tab2Page {
     public authService: AuthService,
     private toasterService: ToastrService,
     private activatedRoute: ActivatedRoute
-
   ) {}
 
   async ngOnInit() {
@@ -30,7 +29,6 @@ export class Tab2Page {
       this.currentUser.username = user.username;
       this.currentUser.email = user.email;
     });
-    this.toasterService.toasterAlert("Attendance Response", "success");
   }
 
   public onCodeResult(attendanceKey: any) {
@@ -41,7 +39,10 @@ export class Tab2Page {
       (successResponse: any) => {
         if (successResponse.success) {
           // this.toasterService.toasterSuccess('bottom', successResponse.message);
-          this.toasterService.toasterAlert("Attendance Response", successResponse.message);
+          this.toasterService.toasterAlert(
+            "Attendance Response",
+            successResponse.message
+          );
           this.isToasterEnabled = true;
           this.spinnerLoading = false;
         } else {

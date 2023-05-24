@@ -15,8 +15,6 @@ export class SignInComponent  {
 
   constructor(private storage:Storage,public authService: AuthService) { }
 
-
-
    //method for submitting signup form
    public onLogin(formDetail: NgForm): void {
     if (formDetail.valid) {
