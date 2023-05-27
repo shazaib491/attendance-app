@@ -7,7 +7,7 @@
   <ion-grid>
     <ion-row>
       <ion-col class="">
-        <form (ngSubmit)="onLogin(form)" #form="ngForm">
+        <form [formGroup]="signInForm" (ngSubmit)="onLogin()">
           <ion-card>
             <ion-card-header> </ion-card-header>
 
@@ -21,27 +21,58 @@
               </div>
 
               <ion-item>
-                <ion-input
-                  label="Email"
-                  labelPlacement="floating"
-                  placeholder="Enter Email"
-                  name="email"
-                  #email
-                  [(ngModel)]="signInDetail.email"
-                ></ion-input>
+                <div>
+                  <ion-input
+                    label="Email"
+                    labelPlacement="floating"
+                    placeholder="Enter Email"
+                    name="email"
+                    formControlName="email"
+                    required
+                  ></ion-input>
+                  <ion-label
+                  color="danger"
+
+                    *ngIf="
+                      (signInFormControl['email'].touched || isFormSubmitted) &&
+                      signInFormControl['email'].errors['required']
+                    "
+                  >
+                    Email is required
+                  </ion-label>
+                </div>
               </ion-item>
               <ion-item>
-                <ion-input
-                  type="password"
-                  label="Password"
-                  labelPlacement="floating"
-                  placeholder="Enter Password"
-                  #password
-                  name="password"
-                  [(ngModel)]="signInDetail.password"
-                ></ion-input>
+                <div>
+                  <ion-input
+                    type="password"
+                    label="Password"
+                    labelPlacement="floating"
+                    placeholder="Enter Password"
+                    name="password"
+                    formControlName="password"
+                    required
+                  ></ion-input>
+                  <ion-label
+                    class="text-danger"
+                    color="danger"
+                    *ngIf="
+                      (signInFormControl['password'].touched ||
+                        isFormSubmitted) &&
+                      signInFormControl['password'].errors['required']
+                    "
+                  >
+                    password is required
+                  </ion-label>
+                </div>
               </ion-item>
-              <ion-button [disabled]="authService.loading$ | async" type="submit" expand="block" class="ion-margin">
+
+              <ion-button
+                [disabled]="authService.loading$ | async"
+                type="submit"
+                expand="block"
+                class="ion-margin"
+              >
                 <ion-spinner
                   *ngIf="authService.loading$ | async"
                   name="dots"

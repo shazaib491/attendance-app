@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { AuthService } from '../auth.service';
-import { NgForm } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 class signIn {
   constructor(public email: string, public password: string) {}
 }
@@ -12,15 +12,35 @@ class signIn {
 })
 export class SignInComponent  {
   public signInDetail = new signIn('', '');
+  public signInForm!:FormGroup;
+  public isFormSubmitted=false;
+  constructor(private storage:Storage,public authService: AuthService,private formBuilder:FormBuilder) { }
 
-  constructor(private storage:Storage,public authService: AuthService) { }
+  ngOnInit(){
+    this.initLoginForm();
+  }
+  
 
-   //method for submitting signup form
-   public onLogin(formDetail: NgForm): void {
-    if (formDetail.valid) {
-     this.authService.login(this.signInDetail)
-     formDetail.reset();
-    }
+  initLoginForm(){
+    this.signInForm=this.formBuilder.group({
+      email:[null,Validators.required],
+      password:[null,Validators.required]
+    })
   }
 
+
+  get signInFormControl():{ [key: string]: AbstractControl } {
+    return this.signInForm.controls;
+  }
+
+   //method for submitting signup form
+   public onLogin(): void {
+    this.isFormSubmitted=true;
+    if (this.signInForm.valid) {
+     this.authService.login(this.signInForm.value)
+     this.signInForm.reset();
+    this.isFormSubmitted=false;
+
+    }
+  }
 }

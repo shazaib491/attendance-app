@@ -214,7 +214,7 @@ export class AuthService {
     const email = await this.storage.get("email");
     const username = await this.storage.get("username");
     if (!token && !expiresDate) {
-      return;
+      return null;
     }
     return {
       token: token,
