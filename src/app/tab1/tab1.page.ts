@@ -3,6 +3,7 @@ import { AuthService } from "../auth/auth.service";
 import { ApiService } from "../services/api.service";
 import { ToastrService } from "ngx-toastr";
 import { ActivatedRoute } from "@angular/router";
+import { TabService } from "../tabs/tab.service";
 
 @Component({
   selector: "app-tab1",
@@ -24,8 +25,11 @@ export class Tab1Page {
     public authService: AuthService,
     private apiService: ApiService,
     private toastr: ToastrService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private tabService: TabService
+  ) {
+
+  }
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ user }) => {
@@ -34,6 +38,11 @@ export class Tab1Page {
     });
     this.getAttendanceKey();
   }
+
+
+  ionViewWillEnter(){
+    this.tabService.setSignalTabName = "qrCode";
+   }
 
   //method for getting the attendance key
   public getAttendanceKey() {

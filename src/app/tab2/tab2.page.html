@@ -1,12 +1,3 @@
-<ion-header >
-  <ion-toolbar color="primary">
-    <ion-buttons class="ion-margin-end" slot="end" (click)="authService.logout()">
-      <ion-icon name="log-out-outline"></ion-icon>
-    </ion-buttons>
-    <ion-title> Qr Scanner </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row>
@@ -23,6 +14,7 @@
               #isComponentLoaded
               [enable]="isToasterEnabled"
               (scanSuccess)="onCodeResult($event)"
+              previewFitMode="cover"
             ></zxing-scanner>
             <ion-item>
               <ion-label class="ion-text-center">

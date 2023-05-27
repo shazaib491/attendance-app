@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../services/api.service";
 import { AuthService } from "../auth/auth.service";
 import { ToastrService } from "../toastr.service";
+import { TabService } from "../tabs/tab.service";
+import { ZXingScannerComponent } from "@zxing/ngx-scanner";
 @Component({
   selector: "app-tab2",
   templateUrl: "tab2.page.html",
@@ -16,12 +18,14 @@ export class Tab2Page {
     username: "",
     email: "",
   };
-  @ViewChild("isComponentLoaded") isComponentLoaded: any;
+  @ViewChild("isComponentLoaded") scanner: any;
   constructor(
     private apiService: ApiService,
     public authService: AuthService,
     private toasterService: ToastrService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private tabService: TabService,
+    private router:Router
   ) {}
 
   async ngOnInit() {
@@ -31,28 +35,29 @@ export class Tab2Page {
     });
   }
 
+  ionViewWillEnter() {
+    this.scanner.enable=true;
+
+    this.tabService.setSignalTabName = "qrScanner";
+  }
+
+  /**
+   * @param attendanceKey string
+   */
   public onCodeResult(attendanceKey: any) {
     this.spinnerLoading = true;
     this.isToasterEnabled = false;
-    // '$2b$10$v/f3wFPgusTThF.qxsbgQO.eiyMLAsZYjC6xO524QFz8VfjqLpJLC'
     this.apiService.markAttendance({ attendanceKey, present: true }).subscribe(
       (successResponse: any) => {
         if (successResponse.success) {
-          // this.toasterService.toasterSuccess('bottom', successResponse.message);
-          this.toasterService.toasterAlert(
-            "Attendance Response",
-            successResponse.message
-          );
-          this.isToasterEnabled = true;
+          this.router.navigate(["/qrCode/tab3"]);
           this.spinnerLoading = false;
         } else {
-          this.isToasterEnabled = true;
           this.spinnerLoading = false;
           this.toasterService.toasterError("bottom", successResponse.message);
         }
       },
       (errorResponse) => {
-        this.isToasterEnabled = true;
         this.spinnerLoading = false;
         this.toasterService.toasterError("bottom", errorResponse.message);
       }
@@ -61,7 +66,7 @@ export class Tab2Page {
 
   ngAfterViewChecked() {
     setTimeout(() => {
-      if (this.isComponentLoaded._ready) {
+      if (this.scanner._ready) {
         this.spinnerLoading = false;
       }
     });
