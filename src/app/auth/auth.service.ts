@@ -62,7 +62,7 @@ export class AuthService {
       (successResponse: any) => {
         if (successResponse.success) {
           this._loading$.next(false);
-          this.router.navigate(["/auth"]);
+          this.router.navigate(["/welcome"]);
           this.toastsService.toasterSuccess(
             "bottom",
             `${successResponse.message}`

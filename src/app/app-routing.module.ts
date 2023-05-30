@@ -6,7 +6,7 @@ import { AuthGuard } from './guard/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'welcome',
     pathMatch: 'full',
   },
   {
@@ -20,6 +20,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('./auth/auth.module').then((m) => m.AuthPageModule),
     canActivate: [IsLoggedINGuard],
+  },
+  {
+    path: 'welcome',
+    loadChildren: () => import('./welcome/welcome.module').then( m => m.WelcomePageModule),
+    canActivate: [IsLoggedINGuard],
+    
   },
 ];
 @NgModule({

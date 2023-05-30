@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar color="primary" class="ion-text-center">
     <ion-title>Sign-In</ion-title>
   </ion-toolbar>
@@ -109,4 +109,84 @@
       copyright@2023</ion-title
     >
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->
+
+<ion-header> </ion-header>
+
+<ion-content class="ion-padding">
+  <div class="title">
+    <h4>Login</h4>
+    <p>Lets get started</p>
+  </div>
+  <div class="ion-text-end" *ngIf="authService.loading$ | async">
+    <ion-spinner
+      style="height: 20px"
+      color="primary"
+      name="circular"
+    ></ion-spinner>
+  </div>
+
+  <form [formGroup]="signInForm" (ngSubmit)="onLogin()">
+    <div>
+      <ion-input
+        type="email"
+        placeholder="Enter Email"
+        formControlName="email"
+        class="primary-input"
+        required
+      ></ion-input>
+      <ion-label
+        color="danger"
+        *ngIf="
+          (signInFormControl['email'].touched || isFormSubmitted) &&
+          signInFormControl['email']?.errors?.required
+        "
+      >
+        Email is required
+      </ion-label>
+    </div>
+    <div>
+      <ion-input
+        placeholder="Password"
+        formControlName="password"
+        type="password"
+        class="primary-input"
+        required
+      ></ion-input>
+
+      <ion-label
+        class="text-danger"
+        color="danger"
+        *ngIf="
+          (signInFormControl['password'].touched || isFormSubmitted) &&
+          signInFormControl['password']?.errors?.required
+        "
+      >
+        password is required
+      </ion-label>
+    </div>
+
+    <div class="ion-margin-top ion-text-right forget">
+      <a>Forgot Password?</a>
+    </div>
+
+    <div class="ion-margin-top">
+      <ion-button
+        type="submit"
+        expand="block"
+        [disabled]="authService.loading$ | async"
+        type="submit"
+      >
+        <ion-spinner
+          *ngIf="authService.loading$ | async"
+          name="dots"
+        ></ion-spinner>
+        <span *ngIf="!(authService.loading$ | async)">LOGIN</span></ion-button
+      >
+    </div>
+
+    <div class="ion-margin-top ion-text-center">
+      <a (click)="dismiss()">Close</a>
+    </div>
+  </form>
+</ion-content>

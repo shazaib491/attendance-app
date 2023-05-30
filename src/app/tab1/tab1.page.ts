@@ -43,6 +43,7 @@ export class Tab1Page {
   ionViewWillEnter(){
     this.tabService.setSignalTabName = "qrCode";
    }
+   
 
   //method for getting the attendance key
   public getAttendanceKey() {

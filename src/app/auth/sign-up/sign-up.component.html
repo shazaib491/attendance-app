@@ -1,3 +1,124 @@
+<ion-header> </ion-header>
+
+<ion-content class="ion-padding">
+  <div class="title">
+    <h4>Signup</h4>
+
+    <p>Register with Code Mecaps AT to get started</p>
+  </div>
+  <div class="ion-text-end" *ngIf="authService.loading$ | async">
+    <ion-spinner
+      style="height: 20px"
+      color="primary"
+      name="circular"
+    ></ion-spinner>
+  </div>
+
+  <form (ngSubmit)="onRegister(form)" #form="ngForm">
+    <div>
+
+
+      
+
+      <ion-input
+        class="primary-input"
+        type="text"
+        placeholder="Enter Username"
+        name="username"
+        [(ngModel)]="signupDetail.username"
+      ></ion-input>
+
+      <ion-input
+      
+        type="email"
+        class="primary-input"
+
+        placeholder="Enter Email"
+        name="email"
+        [(ngModel)]="signupDetail.email"
+      ></ion-input>
+
+      <ion-input
+      class="primary-input"
+
+        placeholder="Enter Mobile"
+        name="mobile"
+        [(ngModel)]="signupDetail.mobile"
+      ></ion-input>
+
+      <ion-input
+      class="primary-input"
+
+        placeholder="Enter Age"
+        name="age"
+        [(ngModel)]="signupDetail.age"
+      ></ion-input>
+
+      <ion-input
+      class="primary-input"
+
+        type="password"
+        placeholder="Enter Password"
+        name="password"
+        [(ngModel)]="signupDetail.password"
+      ></ion-input>
+
+    
+
+      <ion-input
+      class="primary-input"
+
+        type="password"
+        placeholder="Enter Confirm Password"
+        name="confirmPassword"
+        [(ngModel)]="signupDetail.confirmPassword"
+      ></ion-input>
+
+      <ion-select
+      class="primary-input"
+
+        name="batchId"
+        aria-label="Batch Name"
+        interface="Batch Name"
+        placeholder="Batch Name"
+      >
+        <ion-select-option
+          *ngFor="let batches of allBatches$ | async"
+          value="{{ batches._id }}"
+          >{{ batches.course_name }}</ion-select-option
+        >
+      </ion-select>
+    </div>
+
+    <div class="ion-margin-top ion-text-right forget">
+      <a>Forgot Password?</a>
+    </div>
+
+    <div class="ion-margin-top">
+      <ion-button
+        type="submit"
+        expand="block"
+        name="dots"
+        [disabled]="authService.loading$ | async"
+        type="submit"
+      >
+        <ion-spinner
+          *ngIf="authService.loading$ | async"
+          name="dots"
+        ></ion-spinner>
+        <span *ngIf="!(authService.loading$ | async)"
+          >REGISTER</span
+        ></ion-button
+      >
+    </div>
+
+    <div class="ion-margin-top ion-text-center">
+      <a (click)="dismiss()">Close</a>
+    </div>
+  </form>
+</ion-content>
+
+<!-- 
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
@@ -106,4 +227,4 @@
   <ion-toolbar>
     <ion-title>Footer</ion-title>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->
