@@ -4,7 +4,7 @@
   <div class="title">
     <h4>Signup</h4>
 
-    <p>Register with Code Mecaps AT to get started</p>
+    <p>Register with  Mecaps AT to get started</p>
   </div>
   <div class="ion-text-end" *ngIf="authService.loading$ | async">
     <ion-spinner
@@ -16,10 +16,6 @@
 
   <form (ngSubmit)="onRegister(form)" #form="ngForm">
     <div>
-
-
-      
-
       <ion-input
         class="primary-input"
         type="text"
@@ -29,45 +25,37 @@
       ></ion-input>
 
       <ion-input
-      
         type="email"
         class="primary-input"
-
         placeholder="Enter Email"
         name="email"
         [(ngModel)]="signupDetail.email"
       ></ion-input>
 
       <ion-input
-      class="primary-input"
-
+        class="primary-input"
         placeholder="Enter Mobile"
         name="mobile"
         [(ngModel)]="signupDetail.mobile"
       ></ion-input>
 
       <ion-input
-      class="primary-input"
-
+        class="primary-input"
         placeholder="Enter Age"
         name="age"
         [(ngModel)]="signupDetail.age"
       ></ion-input>
 
       <ion-input
-      class="primary-input"
-
+        class="primary-input"
         type="password"
         placeholder="Enter Password"
         name="password"
         [(ngModel)]="signupDetail.password"
       ></ion-input>
 
-    
-
       <ion-input
-      class="primary-input"
-
+        class="primary-input"
         type="password"
         placeholder="Enter Confirm Password"
         name="confirmPassword"
@@ -75,24 +63,28 @@
       ></ion-input>
 
       <ion-select
-      class="primary-input"
-
+        class="primary-input"
         name="batchId"
         aria-label="Batch Name"
         interface="Batch Name"
         placeholder="Batch Name"
       >
-        <ion-select-option
+        <!-- <ion-select-option
           *ngFor="let batches of allBatches$ | async"
           value="{{ batches._id }}"
           >{{ batches.course_name }}</ion-select-option
-        >
+        > -->
+        <ion-select-option value="64721119e412a110aa469e6b">
+          Mean Stack
+        </ion-select-option>
+        <ion-select-option value="6472114ae412a110aa469e6d">
+          Mern Stack
+        </ion-select-option>
       </ion-select>
+     
     </div>
 
-    <div class="ion-margin-top ion-text-right forget">
-      <a>Forgot Password?</a>
-    </div>
+    
 
     <div class="ion-margin-top">
       <ion-button
