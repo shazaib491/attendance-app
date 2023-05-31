@@ -20,7 +20,7 @@ export class WelcomePage implements OnInit {
       mode: "ios",
       backdropDismiss: false,
       cssClass: ["login-modal"],
-      initialBreakpoint:0.50,
+      initialBreakpoint:0.60,
       breakpoints: [0, 0.25, 0.5, 0.75]
 
     });
