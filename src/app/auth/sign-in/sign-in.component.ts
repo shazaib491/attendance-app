@@ -9,6 +9,7 @@ import {
   Validators,
 } from "@angular/forms";
 import { ModalController } from "@ionic/angular";
+import { Router } from "@angular/router";
 
 class signIn {
   constructor(public email: string, public password: string) {}
@@ -26,10 +27,12 @@ export class SignInComponent {
     private storage: Storage,
     public authService: AuthService,
     private formBuilder: FormBuilder,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private router: Router
   ) {}
 
   ngOnInit() {
+    this.router.navigate(["/welcome"]);
     this.initLoginForm();
   }
 
