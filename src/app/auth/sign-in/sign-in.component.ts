@@ -32,8 +32,20 @@ export class SignInComponent {
   ) {}
 
   ngOnInit() {
-    this.router.navigate(["/welcome"]);
     this.initLoginForm();
+  }
+
+  ionViewWillEnter() {
+    // this.router.navigate(["/welcome"]);
+  }
+
+
+  handleRefresh(event) {
+    setTimeout(() => {
+      // Any calls to load data go here
+    this.router.navigate(["/welcome"]);
+      event.target.complete();
+    }, 2000);
   }
 
   initLoginForm() {

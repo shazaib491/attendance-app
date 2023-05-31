@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { AuthService } from './auth/auth.service';
 import { Subscription } from 'rxjs';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -13,11 +14,16 @@ export class AppComponent {
   public userIsAuthenticated = false;
 
   private authListenerSubs?: Subscription;
-  constructor(private storage: Storage,private authService: AuthService) {}
+  constructor(private storage: Storage,private authService: AuthService,
+    private platform: Platform
+    
+    
+    ) {}
 
   async ngOnInit() {
     // If using a custom driver:
     // await this.storage.defineDriver(MyCustomDriver)
+    this.initializeApp();
     await this.storage.create();
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService
@@ -28,6 +34,14 @@ export class AppComponent {
     this.authService.autoAuthUser();
   }
 
+
+  initializeApp() {
+    this.platform.ready().then(() => {
+      this.platform.backButton.subscribeWithPriority(0, () => {
+        navigator["app"].exitApp();
+      });
+    });
+  }
 
   ngOnDestroy() {
     this.authListenerSubs?.unsubscribe();

@@ -114,6 +114,9 @@
 <ion-header> </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="title">
     <h4>Login</h4>
     <p>Lets get started</p>
