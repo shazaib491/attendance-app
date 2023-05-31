@@ -37,9 +37,19 @@ export class Tab2Page {
 
   ionViewWillEnter() {
     this.scanner.enable=true;
-
     this.tabService.setSignalTabName = "qrScanner";
   }
+
+
+  handleRefresh(event) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.scanner.enable=true;
+      this.isToasterEnabled=true;
+      event.target.complete();
+    }, 2000);
+  }
+
 
   /**
    * @param attendanceKey string
@@ -73,7 +83,6 @@ export class Tab2Page {
   }
 
   ngDestroy() {
-    console.log("Destroy");
     this.isToasterEnabled = false;
   }
 }
